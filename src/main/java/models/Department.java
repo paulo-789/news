@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class Department {
     private String name;
     private String description;
@@ -33,5 +35,20 @@ public class Department {
 
     public void setNumberOfStaff(int numberOfStaff) {
         this.numberOfStaff = numberOfStaff;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Department)) return false;
+        Department department = (Department) o;
+        return numberOfStaff == department.numberOfStaff &&
+                Objects.equals(name, department.name) &&
+                Objects.equals(description, department.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, numberOfStaff);
     }
 }

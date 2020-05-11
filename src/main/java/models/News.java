@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class News {
     private String content;
     private String writtenBy;
@@ -23,5 +25,19 @@ public class News {
 
     public void setWrittenBy(String writtenBy) {
         this.writtenBy = writtenBy;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof News)) return false;
+        News news = (News) o;
+        return Objects.equals(content, news.content) &&
+                Objects.equals(writtenBy, news.writtenBy);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(content, writtenBy);
     }
 }
