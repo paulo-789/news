@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Users {
     private String name;
     private String position;
+    private int id;
 
 
 
@@ -29,17 +30,26 @@ public class Users {
         this.position = position;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Users)) return false;
         Users users = (Users) o;
-        return Objects.equals(name, users.name) &&
+        return id == users.id &&
+                Objects.equals(name, users.name) &&
                 Objects.equals(position, users.position);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, position);
+        return Objects.hash(name, position,id);
     }
 }

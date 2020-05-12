@@ -19,3 +19,8 @@ id int PRIMARY KEY auto_increment,
 name VARCHAR,
 position VARCHAR
 );
+CREATE TABLE IF NOT EXISTS users_departments (
+id int PRIMARY KEY auto_increment,
+departmentid INTEGER,
+usersid INTEGER,
+)

@@ -6,6 +6,7 @@ public class Department {
     private String name;
     private String description;
     private int numberOfStaff;
+    private int id;
 
     public Department(String name,String description,int numberOfStaff){
         this.name=name;
@@ -37,18 +38,27 @@ public class Department {
         this.numberOfStaff = numberOfStaff;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Department)) return false;
-        Department department = (Department) o;
-        return numberOfStaff == department.numberOfStaff &&
-                Objects.equals(name, department.name) &&
-                Objects.equals(description, department.description);
+        Department that = (Department) o;
+        return id== that.id &&
+                Objects.equals(numberOfStaff,that.numberOfStaff) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, numberOfStaff);
+        return Objects.hash(name, description, numberOfStaff,id);
     }
 }
