@@ -1,9 +1,11 @@
 package dao;
 import models.Department;
+import models.Users;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sql2oDepartmentDao implements DepartmentDao{
@@ -27,6 +29,20 @@ public class Sql2oDepartmentDao implements DepartmentDao{
     }
 
     @Override
+    public void addDepartmentToUsers(Department department, Users users) {
+        String sql = "INSERT INTO users_departments (departmentid, usersid) VALUES (:departmentId, :usersId)";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("departmentId", department.getId())
+                    .addParameter("usersId", users.getId())
+                    .executeUpdate();
+        } catch (Sql2oException ex){
+            System.out.println(ex);
+        }
+
+    }
+
+    @Override
     public List<Department> getAll() {
         try (Connection con = sql2o.open()) {
             return con.createQuery("SELECT * FROM departments")
@@ -41,6 +57,28 @@ public class Sql2oDepartmentDao implements DepartmentDao{
                     .addParameter("id", id)
                     .executeAndFetchFirst(Department.class);
         }
+    }
+
+    @Override
+    public List<Users> getAllUsersInADepartment(int departmentId) {
+        ArrayList<Users> users = new ArrayList<>();
+        String joinQuery = "SELECT usersid FROM users_departments WHERE departmentid = :departmentId";
+
+        try (Connection con = sql2o.open()) {
+            List<Integer> allUsersIds = con.createQuery(joinQuery)
+                    .addParameter("departmentId", departmentId)
+                    .executeAndFetch(Integer.class);
+            for (Integer usersId : allUsersIds){
+                String usersQuery = "SELECT * FROM users WHERE id = :usersId";
+                users.add(
+                        con.createQuery(usersQuery)
+                                .addParameter("usersId", usersId)
+                                .executeAndFetchFirst(Users.class));
+            }
+        } catch (Sql2oException ex){
+            System.out.println(ex);
+        }
+        return users;
     }
 
     @Override
