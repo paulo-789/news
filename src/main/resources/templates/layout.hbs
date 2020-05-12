@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{#block "title"}}news{{/block}}</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel="stylesheet" href='/app.css'>
+</head>
+<body>
+
+<ul class="nav nav-tabs">
+    <li role="presentation"><a href="/">Home</a></li>
+    <li role="presentation"><a href="/department">Department</a></li>
+    <li role="presentation"><a href="/users">Users</a></li>
+    <li role="presentation"><a href="/news">News</a></li>
+
+</ul>
+<div class="container">
+    <!--begin main template-->
+
+    {{#block "content"}}
+    {{/block}}
+
+</div>
+<!--end main template-->
+{{#block "footer"}}
+    <footer class="page-footer ">
+        <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        </div>
+    </footer>
+    </body>
+    </html>
+{{/block}}
